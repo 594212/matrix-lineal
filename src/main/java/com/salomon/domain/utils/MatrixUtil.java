@@ -6,44 +6,6 @@ public class MatrixUtil {
 
     private final static Random random = new Random();
 
-    static class Square {
-
-        //recursive
-        static int determinant(int[][] mtrx) {
-
-            int n = mtrx.length;
-            if (n == 2) {
-                return mtrx[0][0] * mtrx[1][1] - mtrx[0][1] * mtrx[1][0];
-            }
-
-            int sum = 0;
-            int p = -1;
-            for (int row = 0; row < n; row++) {
-                p = p * (-1);
-                sum += p * mtrx[row][0] * determinant(minor(mtrx, row + 1, 1));
-            }
-            return sum;
-        }
-
-
-        static int[][] algebraic(int[][] mtrx) {
-
-            int n = mtrx.length;
-
-            int[][] mx = new int[n][n];
-            int p = -1;
-            for (int row = 0; row < n; row++) {
-                for (int col = 0; col < n; col++) {
-                    p = p * (-1);
-                    mx[col][row] = p * determinant(minor(mtrx, row + 1, col + 1));
-                }
-            }
-
-            return mx;
-        }
-
-    }
-
     static int[][] minor(int[][] mtrx, int row, int col) {
         int n = mtrx.length;
         int m = mtrx[0].length;
@@ -81,7 +43,6 @@ public class MatrixUtil {
         return mtrx;
     }
 
-
     static int[][] triangle(int n, int m) {
         int[][] mtrx = new int[n][m];
 
@@ -92,7 +53,6 @@ public class MatrixUtil {
 
         return mtrx;
     }
-
 
     static int[][] screwRow(int[][] mtrx) {
         int n = mtrx.length;
@@ -140,7 +100,6 @@ public class MatrixUtil {
         return mtrx;
     }
 
-
     static int[][] zeroRow(int[][] mx, int raw) {
 
         int n = mx.length;
@@ -153,8 +112,19 @@ public class MatrixUtil {
         return mx;
     }
 
+    public static int[][] multiply(int[][] mx, int[][] mx2) {
+        int[][] result = new int[mx.length][mx2[0].length];
+        for (int raw = 0; raw < mx.length; raw++) {
+            for (int col=0; col < mx2[0].length; col++) {
+                for (int el =0; el< mx[0].length; el++) {
+                    result[raw][col] += mx[raw][el]*mx2[el][col];
+                }
+            }
+        }
+        return result;
+    }
 
-    static String toString(int[][] mtrx) {
+    public static String toString(int[][] mtrx) {
         int n = mtrx.length;
         int m = mtrx[0].length;
         StringBuilder sb = new StringBuilder();
@@ -176,5 +146,44 @@ public class MatrixUtil {
         if (temp == 0) return r1();
         else return temp;
     }
+
+    static class Square {
+
+        //recursive
+        static int determinant(int[][] mtrx) {
+
+            int n = mtrx.length;
+            if (n == 2) {
+                return mtrx[0][0] * mtrx[1][1] - mtrx[0][1] * mtrx[1][0];
+            }
+
+            int sum = 0;
+            int p = -1;
+            for (int row = 0; row < n; row++) {
+                p = p * (-1);
+                sum += p * mtrx[row][0] * determinant(minor(mtrx, row + 1, 1));
+            }
+            return sum;
+        }
+
+
+        static int[][] algebraic(int[][] mtrx) {
+
+            int n = mtrx.length;
+
+            int[][] mx = new int[n][n];
+            int p = -1;
+            for (int row = 0; row < n; row++) {
+                for (int col = 0; col < n; col++) {
+                    p = p * (-1);
+                    mx[col][row] = p * determinant(minor(mtrx, row + 1, col + 1));
+                }
+            }
+
+            return mx;
+        }
+
+    }
+
 
 }

@@ -22,11 +22,11 @@ public class LinealSystemUtil {
         return s;
     }
 
-    static int[] terms(int m) {
+    public static int[][] column(int m) {
         Random random = new Random();
-        int[] temp = new int[m];
+        int[][] temp = new int[m][1];
         for (int i = 0; i < m; i++) {
-            temp[i] = random.nextInt(25) - 12;
+            temp[i][0] = random.nextInt(7) - 3;
         }
         return temp;
     }
@@ -92,17 +92,17 @@ public class LinealSystemUtil {
     }
 
     public static void main(String[] args) {
-        int[][] matrix = Matrix.triangle(3, 3).screwCol().screwRow().matrix;
+        int[][] matrix = Matrix.identity(3, 3).screwCol().screwRow().matrix;
         System.out.println(MatrixUtil.toString(matrix));
-        int[] term = terms(3);
-        System.out.println(Arrays.toString(term));
-        int[][] problem = addTerm(term, matrix);
-        System.out.println(MatrixUtil.toString(problem));
-        int[][] solve = steptal(problem);
-        System.out.println(MatrixUtil.toString(solve));
-//        System.out.println(Arrays.toString(simplifyRow(new int[]{0, 0, 10, 770})));;
-        int[][] simpl = simplify(solve);
-        System.out.println(MatrixUtil.toString(simpl));
+        int[][] term = column(3);
+
+        int[][] matrix3 = MatrixUtil.multiply(matrix, term);
+        System.out.println(MatrixUtil.toString(matrix3));
+
+//        System.out.println(MatrixUtil.toString(solve));
+////        System.out.println(Arrays.toString(simplifyRow(new int[]{0, 0, 10, 770})));;
+//        int[][] simpl = simplify(solve);
+//        System.out.println(MatrixUtil.toString(simpl));
 
     }
 

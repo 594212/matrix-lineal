@@ -47,4 +47,8 @@ public class Matrix {
                 "matrix=\n" + MatrixUtil.toString(matrix) +
                 '}';
     }
+
+    public int[][] getMatrix() {
+        return matrix;
+    }
 }
